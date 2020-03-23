@@ -37,39 +37,20 @@ for thisOrg in output['items']:
             noAvatar = True
             try:
                 print(str(thisPerson['avatar']))
-                noAvater = False
+                noAvatar = False
             except:
                 #print('No Avatar')
                 a = 1
             if noAvatar == False:
+                print(thisPerson['id'])
                 print(thisPerson['avatar'])
-                for entry in output['items']:
-                    psqlCur.execute("""INSERT INTO webexusers (
-                        id,
-                        title,
-                        type,
-                        isLocked,
-                        lastActivity,
-                        creatorId,
-                        created,
-                        avatar
-                    ) VALUES (
-                        '{id}',
-                        '{title}',
-                        '{type}',
-                        '{islocked}',
-                        '{lastactivity}',
-                        '{creatorid}',
-                        '{created}',
-                        '{avatar}'
-                    )""".format(
-                        id = entry['id'],
-                        title = entry['title'],
-                        type = entry['type'],
-                        islocked = entry['isLocked'],
-                        lastactivity = entry['lastActivity'],
-                        creatorid = entry['creatorId'],
-                        created = entry['created'],
-                        avatar = entry['avatar']
-                    ))
-                    print(entry)
+                psqlCur.execute("""INSERT INTO webexusers (
+                    id,
+                    avatar
+                ) VALUES (
+                    '{id}',
+                    '{avatar}'
+                )""".format(
+                    id = thisPerson['id'],
+                    avatar = thisPerson['avatar']
+                ))
